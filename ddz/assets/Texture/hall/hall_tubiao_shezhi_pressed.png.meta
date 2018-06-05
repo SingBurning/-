@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "14c853b6-649c-4d4e-a9e3-9b3097823805",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "hall_tubiao_shezhi_pressed": {
+      "ver": "1.0.3",
+      "uuid": "6ee24249-c37c-4064-9696-55fe72ebea3e",
+      "rawTextureUuid": "14c853b6-649c-4d4e-a9e3-9b3097823805",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0.5,
+      "offsetY": 0,
+      "trimX": 2,
+      "trimY": 1,
+      "width": 81,
+      "height": 75,
+      "rawWidth": 84,
+      "rawHeight": 77,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

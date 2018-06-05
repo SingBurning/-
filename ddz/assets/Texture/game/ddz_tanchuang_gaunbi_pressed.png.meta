@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "1acc5707-63f1-4000-9c81-4628e070ec11",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "ddz_tanchuang_gaunbi_pressed": {
+      "ver": "1.0.3",
+      "uuid": "ef02b425-0577-43f8-95c5-2b984970bc66",
+      "rawTextureUuid": "1acc5707-63f1-4000-9c81-4628e070ec11",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 1,
+      "trimY": 1,
+      "width": 80,
+      "height": 80,
+      "rawWidth": 82,
+      "rawHeight": 82,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
