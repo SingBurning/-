@@ -1,14 +1,14 @@
 {
   "ver": "1.0.0",
-  "uuid": "f35918ef-eb80-4126-96ac-95cd234799f2",
+  "uuid": "40c32b35-18f6-4d8d-86f7-b5fba4bcbed3",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "subMetas": {
-    "btn_xiala": {
+    "btn_menu_pressed": {
       "ver": "1.0.3",
-      "uuid": "865beda1-c665-4912-aca0-f53a1bd9f3b1",
-      "rawTextureUuid": "f35918ef-eb80-4126-96ac-95cd234799f2",
+      "uuid": "949b8924-774b-4ef7-b5a2-e14e8b50a018",
+      "rawTextureUuid": "40c32b35-18f6-4d8d-86f7-b5fba4bcbed3",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
