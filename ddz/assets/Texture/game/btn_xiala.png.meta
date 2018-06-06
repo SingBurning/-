@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "f35918ef-eb80-4126-96ac-95cd234799f2",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "btn_xiala": {
+      "ver": "1.0.3",
+      "uuid": "865beda1-c665-4912-aca0-f53a1bd9f3b1",
+      "rawTextureUuid": "f35918ef-eb80-4126-96ac-95cd234799f2",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 73,
+      "height": 70,
+      "rawWidth": 73,
+      "rawHeight": 70,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
