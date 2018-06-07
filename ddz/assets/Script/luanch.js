@@ -24,7 +24,7 @@ cc.Class({
             cc.loader.load({uuid:info.uuid, type:'uuid'},
                 (completedCount, totalCount, item) => {
                     let _loadingNextStep = (completedCount / totalCount * 100);
-                    cc.log(_loadingNextStep);
+                    // cc.log(_loadingNextStep);
                     this.progressBar.progress = _loadingNextStep;
                     if (_loadingNextStep == 100) {
                         cc.director.loadScene(sceneName)

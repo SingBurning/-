@@ -1,41 +1,124 @@
-// Learn cc.Class:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/class.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/class.html
-// Learn Attribute:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
-
+// 大厅界面
+let commonConfig = require("./globalConfig")
 cc.Class({
     extends: cc.Component,
 
     properties: {
-        // foo: {
-        //     // ATTRIBUTES:
-        //     default: null,        // The default value will be used only when the component attaching
-        //                           // to a node for the first time
-        //     type: cc.SpriteFrame, // optional, default is typeof default
-        //     serializable: true,   // optional, default is true
-        // },
-        // bar: {
-        //     get () {
-        //         return this._bar;
-        //     },
-        //     set (value) {
-        //         this._bar = value;
-        //     }
-        // },
+        headSp:{
+            default:null,
+            type:cc.Sprite
+        },
+
+        nickNameLabel:{
+            default:null,
+            type:cc.Label
+        },
+
+        gameGold:{
+            default:null,
+            type:cc.Label
+        },
+
+        settingNode:{
+            default:null,
+            type:cc.Node
+        },
+
+        musicTurnSp:{
+            default:null,
+            type:cc.Sprite
+        },
+
+        voiceTurnSp:{
+            default:null,
+            type:cc.Sprite
+        },
+
+
     },
 
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {},
+    onLoad () {
+        this.nickNameText = commonConfig.playerName;
+        this.goldNumText = commonConfig.playerGold.toString();
+        this.playerHeadSpName = commonConfig.playerHeadSp;
+    },
 
     start () {
-
+        this.nickNameLabel.string = this.nickNameText;
+        this.gameGold.string = this.goldNumText;
+        this.headSp.spriteFrame = new cc.SpriteFrame(cc.url.raw("resources/headIcon/" + this.playerHeadSpName));
+        cc.director.preloadScene("LoadingScene",null);
+        
     },
+
+    settingBtnOnClick:function () {
+        this.settingNode.active = true;
+        this.musicNode = this.settingNode.getChildByName("musicTurnButton");
+        
+        this.soundNode = this.settingNode.getChildByName("voiceTurnButton");
+        if (commonConfig.musicTurn == "on") {
+            this.musicTurnSp.spriteFrame = new cc.SpriteFrame(cc.url.raw("resources/ddz_t_open.png"));
+            this.musicNode.setPosition(cc.p(88, this.musicNode.position.y));
+            // this.musicNode.position.x = 88;
+        }else{
+            this.musicTurnSp.spriteFrame = new cc.SpriteFrame(cc.url.raw("resources/ddz_t_close.png"));
+            this.musicNode.setPosition(cc.p(28, this.musicNode.position.y));
+            // this.musicNode.position.x = 28;
+        }
+
+        if (commonConfig.soundTurn == "on") {
+            this.voiceTurnSp.spriteFrame = new cc.SpriteFrame(cc.url.raw("resources/ddz_t_open.png"));
+            this.soundNode.setPosition(cc.p(88, this.soundNode.position.y));
+            // this.soundNode.position.x = 88;
+        }else{
+            this.voiceTurnSp.spriteFrame = new cc.SpriteFrame(cc.url.raw("resources/ddz_t_close.png"));
+            this.soundNode.setPosition(cc.p(28, this.soundNode.position.y));
+            // this.soundNode.position.x = 28;
+        }
+        
+    },
+
+    musicBtnOnClick:function () {
+        if (this.musicNode.position.x <= 30) {
+            this.musicNode.runAction(cc.moveTo(0.1,this.musicNode.position.x+60, this.musicNode.y))
+            this.musicTurnSp.spriteFrame = new cc.SpriteFrame(cc.url.raw("resources/ddz_t_open.png"));
+            commonConfig.musicTurn = "on"
+            // cc.sys.localStorage.setItem(commonConfig.playerName + "_music", commonConfig.musicTurn);
+        } else {
+            this.musicNode.runAction(cc.moveTo(0.1,this.musicNode.position.x-60, this.musicNode.y))
+            this.musicTurnSp.spriteFrame = new cc.SpriteFrame(cc.url.raw("resources/ddz_t_close.png"));
+            commonConfig.musicTurn = "off"
+            // cc.sys.localStorage.setItem(commonConfig.playerName + "_music", commonConfig.musicTurn);
+        }
+        cc.sys.localStorage.setItem(commonConfig.playerName + "_music", commonConfig.musicTurn);
+    },
+
+    soundBtnOnClick:function () {
+        if (this.soundNode.position.x <= 30) {
+            this.soundNode.runAction(cc.moveTo(0.1,this.soundNode.position.x+60, this.soundNode.y))
+            this.voiceTurnSp.spriteFrame = new cc.SpriteFrame(cc.url.raw("resources/ddz_t_open.png"));
+            commonConfig.soundTurn = "on"
+            // cc.sys.localStorage.setItem(commonConfig.playerName + "_sound", commonConfig.soundTurn);
+        } else {
+            this.soundNode.runAction(cc.moveTo(0.1,this.soundNode.position.x-60, this.soundNode.y))
+            this.voiceTurnSp.spriteFrame = new cc.SpriteFrame(cc.url.raw("resources/ddz_t_close.png"));
+            commonConfig.soundTurn = "off"
+            // cc.sys.localStorage.setItem(commonConfig.playerName + "_sound", commonConfig.soundTurn);
+        }
+        cc.sys.localStorage.setItem(commonConfig.playerName + "_sound", commonConfig.soundTurn);
+    },
+
+    settingCloseBtnOnClick:function () {
+        this.settingNode.active = false;
+    },
+
+    enterRoomBtnOnClick:function (event, customEventData) {
+        commonConfig.gameType = customEventData;
+        commonConfig.nextSceneName = "GameScene";
+        cc.director.loadScene("LoadingScene");
+    }
 
     // update (dt) {},
 });

@@ -1,32 +1,13 @@
-// Learn cc.Class:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/class.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/class.html
-// Learn Attribute:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
-
+// loading界面
+let commonConfig = require("./globalConfig")
 cc.Class({
     extends: cc.Component,
 
     properties: {
-        // foo: {
-        //     // ATTRIBUTES:
-        //     default: null,        // The default value will be used only when the component attaching
-        //                           // to a node for the first time
-        //     type: cc.SpriteFrame, // optional, default is typeof default
-        //     serializable: true,   // optional, default is true
-        // },
-        // bar: {
-        //     get () {
-        //         return this._bar;
-        //     },
-        //     set (value) {
-        //         this._bar = value;
-        //     }
-        // },
+        progressBar:{
+            default: null,
+            type: cc.ProgressBar
+        }
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -34,8 +15,35 @@ cc.Class({
     // onLoad () {},
 
     start () {
-
+        this.progressBar.progress = 0;
+        this.updateProgressBar(commonConfig.nextSceneName);
     },
+
+    updateProgressBar: function (sceneName) {
+        let info = cc.director._getSceneUuid(sceneName);
+        if (info) {
+            cc.director.emit(cc.Director.EVENT_BEFORE_SCENE_LOADING, sceneName);
+            cc.loader.load({uuid:info.uuid, type:'uuid'},
+                (completedCount, totalCount, item) => {
+                    let _loadingNextStep = (completedCount / totalCount * 100);
+                    // cc.log(_loadingNextStep);
+                    this.progressBar.progress = _loadingNextStep;
+                    if (_loadingNextStep == 100) {
+                        cc.director.loadScene(sceneName)
+                    }
+                },
+                function (error, asset) {
+                    if (error) {
+                        cc.log("加载错误："+error.message);
+                    }else{
+                        cc.log("加载结束");
+                    }
+                }
+            );
+        }else{
+            cc.log("未发现场景 "+sceneName);
+        }
+    }
 
     // update (dt) {},
 });
