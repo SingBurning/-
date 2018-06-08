@@ -1,41 +1,39 @@
-// Learn cc.Class:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/class.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/class.html
-// Learn Attribute:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
-
+// 手牌prefab
+let commonConfig = require("./globalConfig");
 cc.Class({
     extends: cc.Component,
 
     properties: {
-        // foo: {
-        //     // ATTRIBUTES:
-        //     default: null,        // The default value will be used only when the component attaching
-        //                           // to a node for the first time
-        //     type: cc.SpriteFrame, // optional, default is typeof default
-        //     serializable: true,   // optional, default is true
-        // },
-        // bar: {
-        //     get () {
-        //         return this._bar;
-        //     },
-        //     set (value) {
-        //         this._bar = value;
-        //     }
-        // },
+        
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     // onLoad () {},
 
-    start () {
+    // start () {
 
-    },
+    // },
 
     // update (dt) {},
+
+    //传入手牌图片地址，以及手牌对应的牌面数字
+    updateCardShow:function (spritepath, cardNumber) {
+        this.node.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(cc.url.raw(spritepath));
+        this.isSelected = false;
+        this.card = cardNumber;
+    },
+
+    cardOnClick:function () {
+        if (this.isSelected) {
+            this.node.setPosition(cc.p(this.node.position.x, this.node.position.y - 30));
+            commonConfig.cardSelect = 0;
+        }else{
+            this.node.setPosition(cc.p(this.node.position.x, this.node.position.y + 30));
+            commonConfig.cardSelect = this.card;
+        }
+
+        this.isSelected = !this.isSelected;
+    }
+
 });

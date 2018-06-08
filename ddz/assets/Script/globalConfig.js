@@ -8,4 +8,6 @@ module.exports = {
     musicTurn:"on",
     soundTurn:"on",
     gameType:"初级场",
+    cardSelect: 0,
+    dizhuIndex: 1,
 };

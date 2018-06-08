@@ -66,7 +66,7 @@ cc.Class({
         let headSpName = cc.sys.localStorage.getItem(headSpNameKey);
         if (headSpName == null) {
             //[n,m]随机数公式Math.floor(Math.random()*(m-n+1))+n
-            let headIndex = Math.floor(Math.random()*(10 - 1 + 1)) + 1;
+            let headIndex = Math.floor(Math.random()*(10 - 1 + 1));
             headSpName = headIndex + ".png"
             cc.sys.localStorage.setItem(headSpNameKey,headSpName);
         }
