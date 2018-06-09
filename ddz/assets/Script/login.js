@@ -14,6 +14,10 @@ cc.Class({
             type:cc.EditBox
         },
 
+        btnSound:{
+            url:cc.AudioClip,
+            default:null
+        }
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -46,6 +50,8 @@ cc.Class({
         let password = this.passwordEdit.string;
         cc.log("昵称："+nickName);
         cc.log("密码："+password);
+
+        this.playSound();
 
         //昵称
         cc.sys.localStorage.setItem("nickname",nickName);
@@ -89,6 +95,13 @@ cc.Class({
 
         commonConfig.nextSceneName = "HallScene";
         cc.director.loadScene("LoadingScene");
+    },
+
+    playSound:function () {
+        let soundStatus = cc.sys.localStorage.getItem(this.nickNameText + "_sound");
+        if (soundStatus == "on") {
+            cc.audioEngine.play(this.btnSound, false, 1);
+        }
     }
 
 });

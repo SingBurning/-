@@ -19,6 +19,16 @@ module.exports = {
         let yushu = num % 13;
         if (yushu == 0) {
             shang = shang - 1;
+            yushu = 13;
+        }
+
+        yushu = yushu - 1;
+        if (num == 53) {
+            shang = 4;
+            yushu = 1;
+        }else if(num == 54){
+            shang = 4;
+            yushu = 2;
         }
 
         return "resources/cards/card_" + shang + "_" + yushu + ".png";
@@ -27,6 +37,7 @@ module.exports = {
     //传入上家出的牌，也索要检测的手牌集合，返回是否有可以大过上家的牌，如果有，返回该牌在相应数组内的索引
     detectionCards:function (lastcard, detectiontab) {
         let lastcardValue = this.exchangeCardForTrueValue(lastcard);
+        cc.log("上家出牌"+lastcardValue + "  "+lastcard);
         for (let index = 0; index < detectiontab.length; index++) {
             let cardValue = this.exchangeCardForTrueValue(detectiontab[index]);
             if (cardValue > lastcardValue) {

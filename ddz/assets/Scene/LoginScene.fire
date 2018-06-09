@@ -267,6 +267,9 @@
     },
     "passwordEdit": {
       "__id__": 9
+    },
+    "btnSound": {
+      "__uuid__": "64912770-da40-4ebc-b5dd-1198d4f17abe"
     }
   },
   {

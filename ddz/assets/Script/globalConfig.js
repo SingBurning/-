@@ -8,6 +8,9 @@ module.exports = {
     musicTurn:"on",
     soundTurn:"on",
     gameType:"初级场",
-    cardSelect: 0,
+    cardSelect: [],
     dizhuIndex: 1,
+    lastCardNum: 0,
+    rule:"       每次只能出一张牌，并且需要比上家所出的牌面数字大才可完成出牌流程。如果手牌中没有比上家牌打的牌，可选择不出，将出牌权留给下家。第一个出完手牌的玩家即可成为胜利玩家，获得相应分数。",
+    paixing:"       不区分花色，由大到小依次为 大王 > 小王 > 2 > A > K > Q > J > 10 > 9 > 8 > 7 > 6 > 5 > 4 > 3",
 };
