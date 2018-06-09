@@ -320,6 +320,7 @@ cc.Class({
                 commonConfig.dizhuIndex = 1;
                 this.lastPlayeIndex = 1;
                 this.selectNode.active = true;
+                this.selectNode.getChildByName("buchuButton").active = false;
                 break;
             case "not":
                 let randomDiZhu = Math.floor(Math.random()*2);
@@ -491,7 +492,14 @@ cc.Class({
             turnIndex = 1;
         }
         this.selectNode.active = (turnIndex == 1);
-        if (turnIndex == 2) {
+        if (turnIndex == 1) {
+            if (this.lastPlayeIndex != 1) {
+                this.selectNode.getChildByName("buchuButton").active = true;
+            }else{
+                this.selectNode.getChildByName("buchuButton").active = false;
+            }
+            
+        }else if (turnIndex == 2) {
             this.callDiZhuLabel_R.string = "";
             if (this.lastPlayeIndex == turnIndex) {
                 this.randomShowCard(turnIndex);
@@ -567,18 +575,23 @@ cc.Class({
 
     selectBtnOnClick:function (event, customEventData) {
         this.playBtnSound();
-        this.selectNode.active = false;
+        
         switch (customEventData) {
             case "yes":
+                // if (commonConfig.cardSelect.length < 1) {
+                //     return;
+                // }
+                // this.selectNode.active = false;
                 this.checkOutMyShowCard();
                 break;
             case "no":
+                this.selectNode.active = false;
                 this.scheduleOnce(function () {
                     this.detectionTurnToShowCard(1);
                 },1);
                 break;
             default:
-                break;
+            break;
         }
     },
 
@@ -587,30 +600,29 @@ cc.Class({
         if (commonConfig.cardSelect.length < 1) {
             return;
         }else{
-            if (commonConfig.cardSelect.length < 1) {
-                return;
-            }
             if (this.lastPlayeIndex == 1) {
+                this.selectNode.active = false;
+                this.selectNode.getChildByName("buchuButton").active = false;
                 let selectCardSpFrame = cardsTool.getCardSpriteFramePath(commonConfig.cardSelect[0]);
-                cc.log("选择的："+commonConfig.cardSelect[0]);
                 this.showCardSp.node.active = true;
                 this.showCardSp.spriteFrame = new cc.SpriteFrame(cc.url.raw(selectCardSpFrame));
                 let cardIndex = this.myCardsTab.indexOf(commonConfig.cardSelect[0]);
                 commonConfig.lastCardNum = commonConfig.cardSelect[0];
-                cc.log("删除前："+this.myCardsTab.length+"  "+this.myCardsPrefabTab.length)
                 this.myCardsTab.splice(cardIndex,1);
                 this.myCardsPrefabTab[cardIndex].destroy();
                 this.myCardsPrefabTab.splice(cardIndex,1);
-                cc.log("删除后："+this.myCardsTab.length+"  "+this.myCardsPrefabTab.length)
                 this.updateShowMyCards();
                 this.lastPlayeIndex = 1;
+                commonConfig.cardSelect.splice(0);
                 this.scheduleOnce(function () {
                     this.detectionTurnToShowCard(1);
                 },1);
             } else {
+                this.selectNode.getChildByName("buchuButton").active = true;
                 let myCardSelectValue = cardsTool.exchangeCardForTrueValue(commonConfig.cardSelect[0]);
                 let lastCardValue = cardsTool.exchangeCardForTrueValue(commonConfig.lastCardNum);
                 if (myCardSelectValue > lastCardValue) {
+                    this.selectNode.active = false;
                     let selectCardSpFrame = cardsTool.getCardSpriteFramePath(commonConfig.cardSelect[0]);
                     this.showCardSp.node.active = true;
                     this.showCardSp.spriteFrame = new cc.SpriteFrame(cc.url.raw(selectCardSpFrame));
@@ -621,6 +633,7 @@ cc.Class({
                     this.myCardsPrefabTab.splice(cardIndex,1);
                     this.updateShowMyCards();
                     this.lastPlayeIndex = 1;
+                    commonConfig.cardSelect.splice(0);
                     this.scheduleOnce(function () {
                         this.detectionTurnToShowCard(1);
                     },1);
